@@ -36,8 +36,8 @@ jobs:
 
       - name: Commit and Push changes
         run: |
-          git config livewireza "GitHub Actions"
-          git config livewireza "actions@github.com"
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
           # Add all newly created CSV files matching the pattern *-records.csv
           # Note: The Python script now replaces dots with underscores for safety in filenames.
           git add *-records.csv
