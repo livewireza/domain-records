@@ -32,7 +32,7 @@ jobs:
       # No Python dependencies like boto3 needed for dig
 
       - name: Run DNS Exporter Script (Dig)
-        run: python route53_exporter.py
+        run: python export.py
 
       - name: Commit and Push changes
         run: |
