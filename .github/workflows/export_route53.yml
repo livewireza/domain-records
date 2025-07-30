@@ -1,48 +1,47 @@
 name: Export DNS Records (Dig)
 
 on:
-  workflow_dispatch: # Allows manual triggering from the GitHub UI
+  workflow_dispatch:
   schedule:
-    # Runs daily at 00:00 UTC
     - cron: '0 0 * * *'
   push:
     branches:
-      - main # Or your default branch like 'master'
+      - main
     paths:
-      - 'domains.txt' # Trigger if domains.txt changes
-      - 'export.py' # Trigger if the script changes
+      - 'domains.txt'
+      - 'route53_exporter.py'
 
 jobs:
   export_records:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Needed to commit the updated records.csv
+      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # No AWS credentials needed for dig lookups
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x' # Use the latest Python 3
-
-      # No Python dependencies like boto3 needed for dig
+          python-version: '3.x'
 
       - name: Run DNS Exporter Script (Dig)
-        run: python export.py
+        run: python route53_exporter.py
+
+      # This step is for debugging and can be removed later
+      - name: List generated files
+        run: ls -l *-records.csv || echo "No CSV files generated."
 
       - name: Commit and Push changes
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          # Add all newly created CSV files matching the pattern *-records.csv
-          # Note: The Python script now replaces dots with underscores for safety in filenames.
           git add *-records.csv
-          # Only commit if there are actual changes
-          git diff --quiet --exit-code || git commit -m "Automated: Update DNS records export via dig"
+          # The following 'git commit' command will always run.
+          # If there are no changes, it will print "nothing to commit".
+          # If there are changes, it will commit them.
+          git commit -m "Automated: Update DNS records export via dig"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
