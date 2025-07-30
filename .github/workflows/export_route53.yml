@@ -1,0 +1,48 @@
+name: Export DNS Records (Dig)
+
+on:
+  workflow_dispatch: # Allows manual triggering from the GitHub UI
+  schedule:
+    # Runs daily at 00:00 UTC
+    - cron: '0 0 * * *'
+  push:
+    branches:
+      - main # Or your default branch like 'master'
+    paths:
+      - 'domains.txt' # Trigger if domains.txt changes
+      - 'route53_exporter.py' # Trigger if the script changes
+
+jobs:
+  export_records:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Needed to commit the updated records.csv
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # No AWS credentials needed for dig lookups
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x' # Use the latest Python 3
+
+      # No Python dependencies like boto3 needed for dig
+
+      - name: Run DNS Exporter Script (Dig)
+        run: python route53_exporter.py
+
+      - name: Commit and Push changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          # Add all newly created CSV files matching the pattern *-records.csv
+          # Note: The Python script now replaces dots with underscores for safety in filenames.
+          git add *-records.csv
+          # Only commit if there are actual changes
+          git diff --quiet --exit-code || git commit -m "Automated: Update DNS records export via dig"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
