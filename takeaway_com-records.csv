@@ -1,10 +1,10 @@
 Name,Type,Value,TTL
-takeaway.com,A,104.18.37.103,N/A
 takeaway.com,A,172.64.150.153,N/A
-takeaway.com,MX,1 aspmx.l.google.com,1800
-takeaway.com,MX,10 aspmx2.googlemail.com,1800
-takeaway.com,MX,10 aspmx3.googlemail.com,1800
-takeaway.com,MX,10 aspmx4.googlemail.com,1800
-takeaway.com,MX,10 aspmx5.googlemail.com,1800
-takeaway.com,MX,5 alt1.aspmx.l.google.com,1800
-takeaway.com,MX,5 alt2.aspmx.l.google.com,1800
+takeaway.com,A,104.18.37.103,N/A
+takeaway.com,MX,1 aspmx.l.google.com,1799
+takeaway.com,MX,10 aspmx2.googlemail.com,1799
+takeaway.com,MX,10 aspmx3.googlemail.com,1799
+takeaway.com,MX,10 aspmx4.googlemail.com,1799
+takeaway.com,MX,10 aspmx5.googlemail.com,1799
+takeaway.com,MX,5 alt1.aspmx.l.google.com,1799
+takeaway.com,MX,5 alt2.aspmx.l.google.com,1799
