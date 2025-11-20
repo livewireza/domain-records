@@ -1,6 +1,6 @@
 Name,Type,Value,TTL
-tk-qa.com,A,172.64.145.116,N/A
 tk-qa.com,A,104.18.42.140,N/A
+tk-qa.com,A,172.64.145.116,N/A
 tk-qa.com,MX,1 aspmx.l.google.com,300
 tk-qa.com,MX,10 aspmx2.googlemail.com,300
 tk-qa.com,MX,10 aspmx3.googlemail.com,300
